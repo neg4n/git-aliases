@@ -37,6 +37,9 @@
     difs = diff --cached
     dif = diff
     amen = cm --amend
+    st = status
+    sta = add
+    usta = reset --
 [user]
     name = Igor Klepacki
     email = neg4n@icloud.com
