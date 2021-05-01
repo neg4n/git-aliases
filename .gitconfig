@@ -38,7 +38,9 @@
     dif = diff
     amen = cm --amend
 [user]
-    name = Bart Stefanski
-    email = contact@bstefanski.com
+    name = Igor Klepacki
+    email = neg4n@icloud.com
+[commit]
+    gpgsign = true
 [core]
     editor = vim
