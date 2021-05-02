@@ -41,6 +41,8 @@
     st = status
     sta = add
     usta = reset --
+    wisnia = cherry-pick
+    thebill = !sh -c 'rm -rf .git/ && git init'
 [user]
     name = Igor Klepacki
     email = neg4n@icloud.com
