@@ -44,6 +44,7 @@
     wisnia = cherry-pick
     thebill = !sh -c 'rm -rf .git/ && git init'
     czyscioch = clean -fdix
+    lastbrs = branch --sort=-committerdate
 [user]
     name = Igor Klepacki
     email = neg4n@icloud.com
