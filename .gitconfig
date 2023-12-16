@@ -1,54 +1,79 @@
 [alias]
-    ai = add -p
+
+    # Uncategorized
     revto = !"git diff --binary HEAD $0 | git apply"	
-    defb = !"git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'"
-    commits = log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=iso
-    contributors = shortlog -s -n
-    unstash = stash apply
-    co = checkout
-    com = !"git checkout $(git defb)"
-    cm = commit
-    br = branch
-    aa = add -A
-    amn = add .
-    cb = !"git rev-parse --abbrev-ref HEAD"
-    fresh = !"git fetch && git pull origin $(git cb)"
-    freshdr = !sh -c 'git fetch && git pull $0 $(git cb)'
-    puszm = !"git push origin $(git defb)"
-    fepul = !sh -c 'git co $(git defb) && git fetch && git pull && git co $0' 
-    fepulc = !sh -c 'export last_branch_name=$(git cb) && git co $(git defb) && git fetch && git pull && git co $last_branch_name' 
+    fresh = !"git fetch && git pull origin $(git cbr)"
+    freshdr = !sh -c 'git fetch && git pull $0 $(git cbr)'
+    puszm = !"git push origin $(git defbr)"
+    fepul = !sh -c 'git co $(git defbr) && git fetch && git pull && git co $0' 
+    fepulc = !sh -c 'export last_branch_name=$(git cbr) && git co $(git defbr) && git fetch && git pull && git co $last_branch_name' 
     pusz = !sh -c 'git push origin $0'
     puszu = !sh -c 'git push --set-upstream origin $0'
-    puszc = !sh -c 'git push origin $(git cb)'
+    puszc = !sh -c 'git push origin $(git cbr)'
     fors = !sh -c 'git push origin $0 --force-with-lease'
-    forsc = !sh -c 'git push origin $(git cb) --force-with-lease'
-    mrbs = !"git rebase origin/$(git defb)"
-    nie = rebase --abort
-    lecim = rebase --continue  
-    branches = show-branch -a
-    soft = reset --soft
-    hard = reset --hard
+    forsc = !sh -c 'git push origin $(git cbr) --force-with-lease'
     sethead = remote set-head origin master
-    bdrem = !sh -c 'git push -d origin $0'
-    bdloc = !sh -c 'git branch -D $0'
+
+    # Get list of all commits
+    cms = log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=iso
+
+    # Get list of local (unpushed) commits
+    cmsloc = cms @{u}..    
+
+    # Show git tree
     tree = log --oneline --graph --color --all --decorate
-    nq = !sh -c 'git rm --cached $0'	
-    nqs = !sh -c 'git co -- $0'
-    resa = reset .
+    
+    # Most common operations
     difs = diff --cached
     dif = diff
+    
+    co = checkout
+    cm = commit
     amen = cm --amend
+    br = branch    
     st = status
     sta = add
+    sta-a = add -A
     usta = reset --
+    usta-a = reset .
     wisnia = cherry-pick
     thebill = !sh -c 'rm -rf .git/ && git init'
     czyscioch = clean -fdix
-    lastbrs = branch --sort=-committerdate
+
+    # Rebase control flow
+    nie = rebase --abort
+    lecim = rebase --continue  
+
+    # Get default branch
+    defbr = !"git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'"
+
+    # Get current branch
+    cbr = !"git rev-parse --abbrev-ref HEAD"
+
+    # Branches remove remote/local
+    brdrem = !sh -c 'git push -d origin $0'
+    brdloc = !sh -c 'git branch -D $0'
+
+    # Sort last branches by commit date
+    lbrs = br --sort=-committerdate
+
+    # Branch picker
+    brp = !sh -c 'git co $(git lbrs | fzf)'
+
 [user]
     name = Igor Klepacki
     email = neg4n@icloud.com
 [commit]
     gpgsign = true
 [core]
-    editor = nvim
+    editor = hx
+    pager = delta
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true    
+    light = false 
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default
