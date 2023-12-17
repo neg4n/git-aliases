@@ -60,7 +60,7 @@
     lbrs = br --sort=-committerdate
 
     # Branch picker
-    brp = !sh -c 'git co $(git lbrs | fzf)'
+    brp = !sh -c '${HOME}/.gitconfig_scripts/branch_picker.sh'
 
 [user]
     name = Igor Klepacki
