@@ -56,6 +56,9 @@
     brdrem = !sh -c 'git push -d origin $0'
     brdloc = !sh -c 'git branch -D $0'
 
+    # Create new branch
+    brn = !sh -c 'git br $0 && git co $0'
+
     # Sort last branches by commit date
     lbrs = br --sort=-committerdate
 
