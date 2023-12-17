@@ -1,1 +1,2 @@
 cp -fR .gitconfig ~/.gitconfig
+cp -fR .gitconfig_scripts ~/.gitconfig_scripts

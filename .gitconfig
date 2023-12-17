@@ -1,5 +1,4 @@
 [alias]
-
     # Uncategorized
     revto = !"git diff --binary HEAD $0 | git apply"	
     fresh = !"git fetch && git pull origin $(git cbr)"
@@ -13,6 +12,9 @@
     fors = !sh -c 'git push origin $0 --force-with-lease'
     forsc = !sh -c 'git push origin $(git cbr) --force-with-lease'
     sethead = remote set-head origin master
+
+    # Get list of contributors
+    contributors = !sh -c '${HOME}/.gitconfig_scripts/contributors.sh'
 
     # Get list of all commits
     cms = log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=iso
